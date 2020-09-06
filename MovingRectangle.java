@@ -12,8 +12,8 @@ public class MovingRectangle extends MovingShape{
     }
 
     // Constructor with given values
-    public MovingRectangle(int x, int y, int currentWidth, int currentHeight, int marginWidth, int marginHeight, Color currentBorderColor, Color currentFillColor, int currentPath){
-        super(x, y, currentWidth, currentHeight, marginWidth, marginHeight, currentBorderColor, currentFillColor, currentPath);
+    public MovingRectangle(int x, int y, int w, int h, int mw, int mh, Color bc, Color fc, int pathType){
+        super(x, y, w, h, mw, mh, bc, fc, pathType);
     }
     
     // Check if a point lies within the rectangle
