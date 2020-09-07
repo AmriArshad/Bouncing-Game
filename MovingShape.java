@@ -1,4 +1,5 @@
 /*
+ *    Amri Arshad, aars120
  *    ===============================================================================
  *    MovingShape.java : The superclass of all shapes.
  *    A shape defines various properties, including selected, colour, width and height.
