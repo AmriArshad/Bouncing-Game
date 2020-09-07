@@ -152,6 +152,20 @@ public abstract class MovingShape {
         path.move();
     }
 
+    // scales the width and height of the shape up by 10%
+    public void scaleUp(){
+        setWidth((int) (width * 1.1));
+        setHeight((int) (height * 1.1));
+    }
+
+    // scales the width and height of the shape down by 10%
+    public void scaleDown(){
+        if (height > 20 || width > 20){
+            setWidth((int) (width * 0.90));
+            setHeight((int) (height * 0.90));
+        }
+    }
+    
     // Inner class ===================================================================== Inner class
     /*
      *    ===============================================================================
