@@ -14,4 +14,14 @@ public class MovingSquare extends MovingRectangle {
     public MovingSquare(int x, int y, int size, int mw, int mh, Color bc, Color fc, int pathType){
         super(x, y, size, size, mw, mh, bc, fc, pathType);
     }
+
+    public void setWidth(int width){
+        this.width = width;
+        this.height = width;
+    }
+
+    public void setHeight(int height){
+        this.width = height;
+        this.height = height;
+    }
 }
