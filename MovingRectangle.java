@@ -1,12 +1,18 @@
+/*
+ *      Amri Arshad, aars120
+ *      =========================
+ *      Creates a rectangle shape
+ *      =========================
+ */
+
 import java.awt.*;
 public class MovingRectangle extends MovingShape{
-
     // Constructor with default values
     public MovingRectangle(){
         super();
     }
 
-    // Constructor with default size
+    // Constructor with given size
     public MovingRectangle(int size){
         super(size);
     }
@@ -37,5 +43,4 @@ public class MovingRectangle extends MovingShape{
     public double getArea() {
         return width * height;
     }
-    
 }
