@@ -24,10 +24,7 @@ public class MovingRectangle extends MovingShape{
     
     // Check if a point lies within the rectangle
     public boolean contains(Point p) {
-        if (p.getX() > x && p.getX() < width && p.getY() > y && p.getY() < height){
-            return true;
-        }
-        return false;
+        return (x <= p.getX() && p.getX() <= (x + width + 1)  &&  y <= p.getY() && p.getY() <= (y + height + 1));
     }
 
     // Draw the rectangle
