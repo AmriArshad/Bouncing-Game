@@ -1,3 +1,10 @@
+/*
+ *      Amri Arshad, aars120
+ *      ======================
+ *      Creates a square shape
+ *      ======================
+ */
+
 import java.awt.*;
 public class MovingSquare extends MovingRectangle {
     // Constructor with default values
@@ -5,7 +12,7 @@ public class MovingSquare extends MovingRectangle {
         super(Math.min(DEFAULTWIDTH, DEFAULTHEIGHT));
     }
 
-    // Constructor with default size
+    // Constructor with given size
     public MovingSquare(int size){
         super(size);
     }
