@@ -105,15 +105,30 @@ public class MovingOverlappedSquare extends MovingRectangle{
         return square2;
     }
 
-    // moves the squares alongside the boundary
+    // moves the squares with the boundary
     public void move(){
         super.move();
 
-        square1.x += path.deltaX;
-        square1.y += path.deltaY;
+        // if selected path is BouncingPath
+        if (path instanceof BouncingPath){
+            square1.x += path.deltaX;
+            square1.y += path.deltaY;
+    
+            square2.x += path.deltaX;
+            square2.y += path.deltaY;
+        }
 
-        square2.x += path.deltaX;
-        square2.y += path.deltaY;
+        // if selected path is FallingPath
+        else if (path instanceof FallingPath){
+            square1.y += path.deltaY;
+            square2.y += path.deltaY;
+
+            // resets position of squares if rectangle goes to top
+            if (y == 0){
+                square1.y = square1.y - y - marginHeight + height;
+                square2.y = square2.y - y - marginHeight + height;
+            }
+        }
     }
 
     // sets width if its greater than 2*SIZE
