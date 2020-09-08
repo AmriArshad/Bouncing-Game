@@ -2,9 +2,9 @@
 COMPSCI 230 A1 Bouncing Game
 
 ## Running the program
-Compile all .java files using:
+Compile A1.java files using:
 ```shell
-javac insert_file_name.java
+javac A1.java
 ```
 
 Run the A1.java file:
