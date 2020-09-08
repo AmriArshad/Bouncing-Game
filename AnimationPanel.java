@@ -1,4 +1,5 @@
 /*
+ *    Amri Arshad, aars120
  *    ==========================================================================================
  *    AnimationPanel.java : Moves shapes around on the screen according to different paths.
  *    It is the main drawing area where shapes are added and manipulated.
@@ -68,17 +69,52 @@ public class AnimationPanel extends JComponent implements Runnable {
         // create a new shape dependent on all current properties and the mouse position
         switch (currentShapeType) {
             case 0: {
-			//complete this and add a few more cases
+            //complete this and add a few more cases
+                shapes.add(new MovingRectangle(x, y, currentWidth, currentHeight, marginWidth, marginHeight, currentBorderColor, currentFillColor, currentPath));
                 break;
-			}
+            }
+            case 1: {
+                shapes.add(new MovingSquare(x, y, Math.min(currentWidth, currentHeight), marginWidth, marginHeight, currentBorderColor, currentFillColor, currentPath));
+                break;
+            }
+            case 2: {
+                shapes.add(new MovingEllipse(x, y, currentWidth, currentHeight, marginWidth, marginHeight, currentBorderColor, currentFillColor, currentPath));
+                break;
+            }
+            case 3: {
+                shapes.add(new MovingPyramid(x, y, currentWidth, currentHeight, marginWidth, marginHeight, currentBorderColor, currentFillColor, currentPath));
+                break;
+            }
+            case 4: {
+                shapes.add(new MovingOverlappedSquare(x, y, currentWidth, currentHeight, marginWidth, marginHeight, currentBorderColor, currentFillColor, currentPath, rand));
+                break;
+            }
        }
     }
 
-	public void scaleUp() { } //complete this
+	public void scaleUp() {
+        for (MovingShape currentShape: shapes)
+			if (currentShape.isSelected())
+				currentShape.scaleUp();
+     } //complete this
 
-	public void scaleDown() { } //complete this
+	public void scaleDown() {
+        for (MovingShape currentShape: shapes)
+			if (currentShape.isSelected())
+				currentShape.scaleDown();
+     } //complete this
 
-	public String getSortedInfo() { return "";} //complete this
+	public String getSortedInfo() {
+        String result = "" ;
+
+        Collections.sort(shapes);
+
+        for (MovingShape currentShape: shapes){
+            result += currentShape + "\n";
+        }
+        
+        return result;
+    } //complete this
 
     /** set the current shape type
      * @param s    the new shape type */
