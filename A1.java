@@ -12,6 +12,8 @@ import java.awt.event.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 import java.util.ArrayList;
+import java.io.*;
+import javax.sound.sampled.*;
 
 public class A1 extends JFrame {
 	AnimationPanel panel;  // panel for bouncing area
@@ -19,6 +21,12 @@ public class A1 extends JFrame {
 	JTextField heightText, widthText;
 	JComboBox<ImageIcon> shapesComboBox, pathComboBox;
 	JTextArea log;
+	// initialise variables needed for music player
+	public JButton playMusic, stopMusic;  
+	public AudioFormat audioFormat;
+    public AudioInputStream audioInputStream;
+    public SourceDataLine sourceDataLine;
+	public boolean stopPlayback = false;
 
 	/** main method for A1 */
 	public static void main(String[] args) {
@@ -197,6 +205,26 @@ public class A1 extends JFrame {
 					panel.scaleDown();
 			}
 		});
+		//set up the stop music button
+		stopMusic = new JButton("stop music");
+		stopMusic.setToolTipText("stops music");
+		stopMusic.addActionListener( new ActionListener() {
+			public void actionPerformed( ActionEvent e) {
+				stopPlayback = true;
+			}
+		});
+		//set up the play music button
+		playMusic = new JButton("play music");
+		playMusic.setToolTipText("plays music");
+		playMusic.setEnabled(true);
+		stopMusic.setEnabled(false);
+		playMusic.addActionListener( new ActionListener() {
+			public void actionPerformed( ActionEvent e) {
+				playMusic.setEnabled(false);
+				stopMusic.setEnabled(true);
+				playAudio();
+			}
+		});
 		JPanel toolsPanel = new JPanel();
 		toolsPanel.add(startButton);
 		toolsPanel.add(stopButton);
@@ -215,6 +243,8 @@ public class A1 extends JFrame {
 		toolsPanel.add(infoButton);
 		toolsPanel.add(upButton);
 		toolsPanel.add(downButton);
+		toolsPanel.add(playMusic);
+		toolsPanel.add(stopMusic);
 		return toolsPanel;
 	}
 
@@ -238,5 +268,56 @@ public class A1 extends JFrame {
 		java.net.URL imgURL = A1.class.getResource(filename);
 		return new ImageIcon(imgURL);
 	}
-}
 
+	// plays audio
+	public void playAudio() {
+        try{
+            File soundFile = new File("audio.wav");
+            audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            audioFormat = audioInputStream.getFormat();
+            System.out.println(audioFormat);
+
+            DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class,audioFormat);
+
+            sourceDataLine =(SourceDataLine)AudioSystem.getLine(dataLineInfo);
+            new PlayThread().start();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0); 
+        }
+	}
+	
+	// plays data from audio file
+	class PlayThread extends Thread{
+        byte tempBuffer[] = new byte[10000];
+
+        public void run(){
+            try{
+                sourceDataLine.open(audioFormat);
+                sourceDataLine.start();
+
+                int count;
+
+                while((count = audioInputStream.read(tempBuffer,0,tempBuffer.length)) != -1 && stopPlayback == false){
+                    if(count > 0){
+ 
+                        sourceDataLine.write(
+                        tempBuffer, 0, count);
+                    }
+				}
+				
+                sourceDataLine.drain();
+				sourceDataLine.close();
+				
+				playMusic.setEnabled(true);
+				stopMusic.setEnabled(false);
+                stopPlayback = false;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                System.exit(0);
+            }
+        }
+    }
+}
