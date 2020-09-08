@@ -2,12 +2,12 @@
 COMPSCI 230 A1 Bouncing Game
 
 ## Running the program
-Compile A1.java files using:
+Compile A1.java using:
 ```shell
 javac A1.java
 ```
 
-Run the A1.java file:
+Run A1.java using:
 ```shell
 java A1
 ```
