@@ -7,7 +7,7 @@
  */
 
 import java.awt.*;
-public abstract class MovingShape {
+public abstract class MovingShape implements Comparable<MovingShape>{
 
     public int marginWidth, marginHeight; // the margin of the animation panel area
     protected int x, y, width, height;   // the top left corner, width and height
@@ -143,7 +143,11 @@ public abstract class MovingShape {
             case 0 : {
                 path = new BouncingPath(1, 2);
                 break;
-			}
+            }
+            case 1: {
+                path = new FallingPath(2);
+                break;
+            }
 		}
     }
 
@@ -160,10 +164,19 @@ public abstract class MovingShape {
 
     // scales the width and height of the shape down by 10%
     public void scaleDown(){
-        if (height > 20 || width > 20){
-            setWidth((int) (width * 0.90));
+        if (height > 20){
             setHeight((int) (height * 0.90));
         }
+        if (width > 20){
+            setWidth((int) (width * 0.90));
+        }
+    }
+
+    public int compareTo(MovingShape other){
+        if (x - other.x != 0){
+            return x - other.x;
+        }
+        return y - other.y;
     }
     
     // Inner class ===================================================================== Inner class
@@ -219,7 +232,23 @@ public abstract class MovingShape {
                  y = marginHeight - height;
              }
         }
-	}
+    }
+    
+    public class FallingPath extends MovingPath {
+        
+        // Constructor with one integer as parameter
+        public FallingPath(int dy){
+            deltaY = dy;
+        }
+        
+        // moves the shape
+        public void move(){
+            y += deltaY;
+            if (y >= marginHeight - height){
+                y = 0;
+            }
+        }
+    }
 
 }
 
