@@ -4,10 +4,10 @@ COMPSCI 230 A1 Bouncing Game
 ## Running the program
 Compile A1.java using:
 ```shell
-javac A1.java
+$ javac A1.java
 ```
 
 Run A1.java using:
 ```shell
-java A1
+$ java A1
 ```
